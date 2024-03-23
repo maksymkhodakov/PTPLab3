@@ -43,11 +43,9 @@ tryPrefixes :: Automaton -> String -> [Symbol] -> String -> Maybe String
 tryPrefixes automaton word alphabet prefix =
   if accepts automaton (prefix ++ word)
   then Just prefix
-  else if length prefix > 20 -- Встановлюємо розумне обмеження для глибини рекурсії
-       then Nothing
-       else let possiblePrefixes = [prefix ++ [a] | a <- alphabet]
-                results = map (\p -> tryPrefixes automaton word alphabet p) possiblePrefixes
-            in getFirstJust results
+  else let possiblePrefixes = [prefix ++ [a] | a <- alphabet]
+           results = map (\p -> tryPrefixes automaton word alphabet p) possiblePrefixes
+       in getFirstJust results
 
 getFirstJust :: [Maybe String] -> Maybe String
 getFirstJust = foldr (\x acc -> if isJust x then x else acc) Nothing
