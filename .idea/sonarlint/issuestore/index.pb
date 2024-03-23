@@ -47,3 +47,9 @@ w
 G.idea/sonarlint/issuestore/7/1/711b6f1c3413effce4f7e9c9d259cb3c012868ac,7/a/7ad1128a79626d10690993105c8be7a4b265527f
 @
 app/automata.txt,f/5/f5c13205422cd15339fe867d67fa46f323fdf1f4
+9
+	Automaton,4/4/44ba7c9100516298055fc980c38686ce14b07df5
+4
+Bool,d/a/daf760a167a8047cee872015a8e80002f3b67442
+>
+app/program.pl,e/3/e3336ca642215221f4dd9eb213eca1ccf9f149a2
