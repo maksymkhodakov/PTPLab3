@@ -39,16 +39,17 @@ parseTransition line =
   let [from, to, [symbol]] = words line
   in ((read from, symbol), read to)
 
-tryPrefixes :: Automaton -> String -> [Symbol] -> String -> Maybe String
-tryPrefixes automaton word alphabet prefix =
-  if accepts automaton (prefix ++ word)
-  then Just prefix
-  else let possiblePrefixes = [prefix ++ [a] | a <- alphabet]
-           results = map (\p -> tryPrefixes automaton word alphabet p) possiblePrefixes
-       in getFirstJust results
-
-getFirstJust :: [Maybe String] -> Maybe String
-getFirstJust = foldr (\x acc -> if isJust x then x else acc) Nothing
+tryPrefixes :: Automaton -> String -> [Symbol] -> String -> Int -> Maybe String
+tryPrefixes automaton word alphabet prefix depth
+  | accepts automaton (prefix ++ word) = Just prefix
+  | depth >= maxDepth = Nothing  -- Максимальна глибина рекурсії досягнута
+  | otherwise = case filter isJust results of
+      [] -> Nothing
+      (Just p:_) -> Just p
+  where
+    maxDepth = 10  -- Встановлюємо максимальну глибину рекурсії
+    possiblePrefixes = [prefix ++ [a] | a <- alphabet]
+    results = map (\p -> tryPrefixes automaton word alphabet p (depth + 1)) possiblePrefixes
 
 main :: IO ()
 main = do
@@ -58,7 +59,8 @@ main = do
   putStrLn "Enter the word w:"
   word <- getLine
   let alphabet = alphabetFromAutomaton automaton
-  let prefix = tryPrefixes automaton word alphabet ""
+  -- Початковий виклик функції tryPrefixes з глибиною рекурсії 0
+  let prefix = tryPrefixes automaton word alphabet "" 0
   case prefix of
     Just p -> putStrLn $ "The automaton accepts the word with prefix: " ++ p ++ word
     Nothing -> putStrLn "No prefix found that the automaton accepts."
