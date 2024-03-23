@@ -45,3 +45,5 @@ w
 G.idea/sonarlint/issuestore/a/b/ab09011fa121d0a2bb9fa4ca76094f2482b902b7,5/3/53eed95a3b0a228d4347b1b22cf5bbb3d9f3ef9b
 w
 G.idea/sonarlint/issuestore/7/1/711b6f1c3413effce4f7e9c9d259cb3c012868ac,7/a/7ad1128a79626d10690993105c8be7a4b265527f
+@
+app/automata.txt,f/5/f5c13205422cd15339fe867d67fa46f323fdf1f4
